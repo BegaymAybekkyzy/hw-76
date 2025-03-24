@@ -26,7 +26,10 @@ const fileDb = {
         return lastMessages.reverse();
     },
 
-
+    async getMessagesByDate(datetime: string) {
+        const messages = data.filter(message => new Date(message.datetime) > new Date(datetime));
+        return messages.reverse();
+    },
 
     async addNewMessage(message: IMessageRequest) {
         const newMessage: Imessage = {

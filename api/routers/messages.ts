@@ -5,9 +5,29 @@ import fileDb from "../fileDb";
 const messagesRouter = express.Router();
 
 messagesRouter.get('/', async (req, res) => {
+    const queryDate = req.query.datetime as string;
 
-    const lastMessages = await fileDb.getLastThirtyMessages();
-    res.send(lastMessages);
+    if (!queryDate) {
+        const lastMessages = await fileDb.getLastThirtyMessages();
+        res.send(lastMessages);
+        return;
+    }
+
+    const date = new Date(queryDate);
+
+    if (isNaN(date.getDate())) {
+        res.status(400).send({
+            error: 'Invalid date',
+        })
+        return;
+    }
+
+    if (queryDate) {
+        const messagesByDate = await fileDb.getMessagesByDate(queryDate);
+        console.log(messagesByDate);
+        res.send(messagesByDate);
+        return;
+    }
 
 
 });
