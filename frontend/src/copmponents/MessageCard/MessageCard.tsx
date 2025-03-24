@@ -10,15 +10,43 @@ interface Props {
 }
 
 const MessageCard: React.FC<Props> = ({message}) => {
+    const messageDate = dayjs(message.datetime);
+    const now = dayjs();
+
+    const nowDay = now.date();
+    const nowMonth = now.month();
+    const nowYear = now.year();
+
+    const messageDay = messageDate.date();
+    const messageMonth = messageDate.month();
+    const messageYear = messageDate.year();
+
+    let date: string = '';
+
+    if (nowYear === messageYear && nowMonth === messageMonth && nowDay === messageDay) {
+        date = messageDate.format('HH:mm');
+    } else if (nowYear === messageYear && nowMonth === messageMonth && nowDay - 1 === messageDay) {
+        date = 'Yesterday';
+    } else {
+        if (nowYear !== messageYear) {
+            date = messageDate.format('DD.MM.YYYY');
+        } else {
+            date = messageDate.format('DD.MM');
+        }
+    }
+
     return (
-        <Card sx={{ minWidth: 275, border: '1px solid #7B68EE', mb: "20px" }}>
+        <Card sx={{minWidth: 275, border: '1px solid #7B68EE', mb: "20px"}}>
             <CardContent>
-                <Typography variant="h5" component="div">
-                    {message.author}
+                <Typography component="div" sx={{mb: "20", fontSize: "19px"}}>
+                    <span style={{fontWeight: "semibold", marginRight: "10px"}}>
+                        {message.author}:
+                    </span>
+                    {message.message}
                 </Typography>
-                <Typography sx={{mb: 1.5 }}> {message.message}</Typography>
-                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                    {dayjs(message.datetime).format('DD.MM.YYYY HH:mm') }
+
+                <Typography gutterBottom sx={{color: 'text.secondary', fontSize: 14}}>
+                    {date}
                 </Typography>
             </CardContent>
         </Card>
