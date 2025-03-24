@@ -36,7 +36,7 @@ const MessageCard: React.FC<Props> = ({message}) => {
     }
 
     return (
-        <Card sx={{minWidth: 275, border: '1px solid #7B68EE', mb: "20px"}}>
+        <Card sx={{width: "50%", border: '1px solid #7B68EE', mb: "20px"}}>
             <CardContent>
                 <Typography component="div" sx={{mb: "20", fontSize: "19px"}}>
                     <span style={{fontWeight: "semibold", marginRight: "10px"}}>

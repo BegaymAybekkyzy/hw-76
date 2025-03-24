@@ -57,7 +57,9 @@ const App = () => {
                     {loading
                         ? <Box sx={{height: "80vh", display: "flex", alignItems: "center", justifyContent: "center"}}><Loader /></Box>
                         : messages.map((message) => (
-                        <MessageCard key={message.id} message={message} />
+                        <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <MessageCard key={message.id} message={message} />
+                        </Box>
                     ))}
                 </Box>
 
