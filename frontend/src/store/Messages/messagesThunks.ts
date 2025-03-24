@@ -13,6 +13,7 @@ export const fetchAllMessages = createAsyncThunk<IMessageAPI[], void>(
 export const fetchMessagesByDate = createAsyncThunk<IMessageAPI[], string>(
     "messages/fetchMessagesByDate",
     async (datetime) => {
+
         const response = await axiosAPI(`messages?datetime=${datetime}`);
         return response.data;
     }

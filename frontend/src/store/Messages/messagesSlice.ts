@@ -5,17 +5,20 @@ import {RootState} from "../../app/store.ts";
 
 interface messagesState {
     messages: IMessageAPI[];
+    messagesByDate: IMessageAPI[];
     sendingLoading: boolean;
     fetchingLoading: boolean;
 }
 
 const initialState: messagesState = {
     messages: [],
+    messagesByDate: [],
     sendingLoading: false,
     fetchingLoading: false,
 };
 
 export const selectMessages = (state: RootState) => state.messages.messages;
+export const selectMessagesByDate = (state: RootState) => state.messages.messagesByDate;
 export const selectSendingLoading = (state: RootState) => state.messages.sendingLoading;
 export const selectFetchingLoading = (state: RootState) => state.messages.fetchingLoading;
 
@@ -36,15 +39,9 @@ const messagesSlice = createSlice({
                 state.fetchingLoading = false;
             })
 
-            .addCase(fetchMessagesByDate.pending, state => {
-                state.fetchingLoading = true;
-            })
+
             .addCase(fetchMessagesByDate.fulfilled, (state, {payload}) => {
-                state.fetchingLoading = false;
-                state.messages = payload;
-            })
-            .addCase(fetchMessagesByDate.rejected, state => {
-                state.fetchingLoading = false;
+                state.messagesByDate = payload;
             })
 
             .addCase(submitNewMessage.pending, state => {

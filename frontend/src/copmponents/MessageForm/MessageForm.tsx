@@ -23,6 +23,7 @@ const MessageForm = () => {
             return;
         }
         await dispatch(submitNewMessage(form));
+        setForm(initialForm);
     };
 
     const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
