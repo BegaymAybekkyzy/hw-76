@@ -22,14 +22,8 @@ messagesRouter.get('/', async (req, res) => {
         return;
     }
 
-    if (queryDate) {
-        const messagesByDate = await fileDb.getMessagesByDate(queryDate);
-        console.log(messagesByDate);
-        res.send(messagesByDate);
-        return;
-    }
-
-
+    const messagesByDate = await fileDb.getMessagesByDate(queryDate);
+    res.send(messagesByDate);
 });
 
 messagesRouter.post('/', async (req, res) => {
